@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/assets/css/reset.css" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Pragati+Narrow|Prata|Sorts+Mill+Goudy|Special+Elite" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
+    <title>News Scraper Test</title>
+</head>
+
+<body>
+    <nav class="uk-navbar-container">
+        <div class="uk-navbar-left">
+            <!-- <h1 id="scraperTitle">Mongo Scraper</h1> -->
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a href="#">
+                        <span class="navText">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="navText">Saved Articles</span>
+                    </a>
+                </li>
+                <li>
+                    <button class="uk-button uk-button-danger" id="scrapeNew">
+                        <span class="navText">Scrape New Articles</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="uk-inline">
+            <img src="./assets/images/newspaper.jpeg" alt="Stack of newspapers" id="newsImage">
+            <div class="uk-overlay uk-position-top-center" id="scraperTitle">Mongo Scraper</div>
+            <div class="uk-overlay uk-position-top-center" id="scraperSecondaryTitle">The Guardian Edition</div>
+        </div>
+    </div>
+</body>
+
+</html>

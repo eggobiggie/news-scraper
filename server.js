@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var cheerio = require("cheerio");
 
 //Require models for db
-var db = require("./models");
+// var db = require("./models");
 
 //Local port
 var PORT = process.env.PORT || 3000;

@@ -1,5 +1,5 @@
-//requiring and exporing both models
+//requiring and exporting both models
 module.exports = {
     Headline: require("./Headline"),
-    Note: require("/Note")
+    Note: require("./Note")
 };
