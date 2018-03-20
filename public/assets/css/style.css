@@ -33,9 +33,10 @@ body {
 
 .headlineTitle {
     font-weight: bold;
-    padding: 10px;
+    padding: 20px;
     color: white;
     background-color: #397eee;
+    text-shadow: 1px 1px 6px black;
     /* width: 90%; */
     /* margin-left: 20px; */
 }
@@ -47,4 +48,14 @@ body {
     padding-left: 10px;
     padding-bottom: 30px;
     background-color: white;
+}
+
+.saveButton {
+    background-color: #b5ee39;
+    color: black;
+}
+
+.saveButtonText {
+    /* color: #696969; */
+    text-shadow: 1px 1px 6px black;
 }
