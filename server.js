@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var cheerio = require("cheerio");
+var request = require("request");
 
 //Require models for db
 // var db = require("./models");
@@ -28,6 +29,22 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
 //   useMongoClient: true
 });
+
+
+request("https://www.npr.org/", function (error, response, html) {
+    var $ = cheerio.load(html);
+    var results = [];
+    $("div.story-text").each(function(i, element) {
+        var title = $(element).find("a").find("h1").text();
+        var teaser = $(element).find("a").find("p").text();
+        results.push({
+            title: title,
+            teaser: teaser
+        });
+    });
+    console.log(results);
+});
+
 
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
