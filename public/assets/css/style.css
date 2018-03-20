@@ -1,36 +1,50 @@
+body {
+    background-image: url("../images/dust_scratches.png");
+    /* height: 10000%; */
+    background-color: grey;
+    background-repeat: repeat;
+}
+
 #scrapeNew {
     margin-top: 20px;
     padding-left: 15px;
     padding-right: 15px;
     margin-left: 15px;
-    /* background-color: #65625E; */
 }
 
 #scraperTitle {
-    /* padding-top: 15px;
-    padding-right: 20px;
-    padding-left: 20px;  */
-    /* font-family: 'Special Elite', cursive; */
     font-weight: bold;
     color: white;
     font-size: 70px;
-    /* font-family: 'Prata', serif; */
-    /* font-family: 'Sorts Mill Goudy', serif; */
-    /* font-family: 'Pragati Narrow', sans-serif; */
 }
 
 #scraperSecondaryTitle {
-    /* font-family: 'Special Elite', cursive; */
     font-weight: bold;
     color: white;
     font-size: 20px;
     margin-top: 85px;
 }
 
-.navText {
-    /* font-weight: bold; */
-    /* font-family: 'Special Elite', cursive; */
-/* font-family: 'Prata', serif; */
-/* font-family: 'Sorts Mill Goudy', serif; */
-/* font-family: 'Pragati Narrow', sans-serif; */
+.test {
+    /* border: 5px solid #646E33; */
+    width: 98%;
+    /* border-radius: 5px; */
+}
+
+.headlineTitle {
+    font-weight: bold;
+    padding: 10px;
+    color: white;
+    background-color: #397eee;
+    /* width: 90%; */
+    /* margin-left: 20px; */
+}
+
+.descriptionParagraph {
+    /* width: 90%; */
+    margin-top: -30px;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+    background-color: white;
 }
