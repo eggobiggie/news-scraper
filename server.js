@@ -6,7 +6,7 @@ var cheerio = require("cheerio");
 var request = require("request");
 
 //Require models for db
-// var db = require("./models");
+var db = require("./models");
 
 //Local port
 var PORT = process.env.PORT || 3000;
@@ -30,19 +30,36 @@ mongoose.connect(MONGODB_URI, {
 //   useMongoClient: true
 });
 
+app.get("/scrape", function(req, res) {
 
-request("https://www.npr.org/", function (error, response, html) {
-    var $ = cheerio.load(html);
-    var results = [];
-    $("div.story-text").each(function(i, element) {
-        var title = $(element).find("a").find("h1").text();
-        var teaser = $(element).find("a").find("p").text();
-        results.push({
-            title: title,
-            teaser: teaser
+    request("https://www.npr.org/", function (error, response, html) {
+
+        var $ = cheerio.load(html);
+
+        var results = {};
+
+        $("div.story-text").each(function(i, element) {
+            //empty result object
+            // var results = {};
+
+            results.headline = $(element).find("a").find("h1").text();
+            results.teaser = $(element).find("a").find("p").text();
+
+            // results.push({
+            //     title: title,
+            //     teaser: teaser
+            // });
+            
+            //create new headline in DB
+            db.Headline.create(results).then(function(dbHeadline) {
+                console.log(dbHeadline);
+            }).catch(function(err) {
+                return res.json(err);
+            });
         });
+        // console.log(results);
+        // res.send("Scrape Complete");
     });
-    console.log(results);
 });
 
 
