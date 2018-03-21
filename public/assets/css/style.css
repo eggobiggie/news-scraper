@@ -24,37 +24,48 @@ body {
     margin-top: 85px;
 }
 
-.test {
-    /* border: 5px solid #646E33; */
+.headlineList {
     width: 98%;
-    /* border-radius: 5px; */
+}
+
+.headline {
+    background-color: #397eee;
 }
 
 .headlineTitle {
     font-weight: bold;
-    padding: 20px;
+    padding: 30px;
     color: white;
-    background-color: #397eee;
+    /* background-color: #397eee; */
     text-shadow: 1px 1px 6px black;
-    /* width: 90%; */
-    /* margin-left: 20px; */
 }
 
-.descriptionParagraph {
-    /* width: 90%; */
+.linkText {
+    color: white;
+}
+
+.linkText:hover {
+    color: 	#C2DFFF;
+    text-decoration: none;
+}
+
+.description {
     margin-top: -30px;
+    margin-bottom: 20px;
     padding-top: 30px;
     padding-left: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     background-color: white;
 }
 
 .saveButton {
     background-color: #b5ee39;
     color: black;
+    padding: 100px;
 }
 
 .saveButtonText {
-    /* color: #696969; */
-    text-shadow: 1px 1px 4px black;
+    text-shadow: 1px 1px 2px black;
+    color: white;
+    font-weight: bold;
 }
