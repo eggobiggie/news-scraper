@@ -14,12 +14,16 @@ var PORT = process.env.PORT || 3000;
 //Initialize express
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(express.static("public"));
 
 //Require handlebars
 var exphbs = require("express-handlebars");
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({
+    defaultLayout: "main"
+}));
 app.set("view engine", "handlebars");
 
 //Setup for deploying to heroku with mongoDB
@@ -27,10 +31,10 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
-//   useMongoClient: true
+    //   useMongoClient: true
 });
 
-app.get("/scrape", function(req, res) {
+app.get("/scrape", function (req, res) {
 
     request("https://www.npr.org/", function (error, response, html) {
 
@@ -38,7 +42,7 @@ app.get("/scrape", function(req, res) {
 
         var results = {};
 
-        $("div.story-text").each(function(i, element) {
+        $("div.story-text").each(function (i, element) {
             //empty result object
             // var results = {};
 
@@ -49,20 +53,51 @@ app.get("/scrape", function(req, res) {
             //     title: title,
             //     teaser: teaser
             // });
-            
+
             //create new headline in DB
-            db.Headline.create(results).then(function(dbHeadline) {
+            db.Headline.create(results).then(function (dbHeadline) {
                 console.log(dbHeadline);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 return res.json(err);
             });
         });
         // console.log(results);
-        // res.send("Scrape Complete");
+        res.send("Scrape Complete");
     });
 });
 
 
-app.listen(PORT, function() {
+//Grab all headlines from database
+app.get("/headlines", function (req, res) {
+    db.Headline.find({}).then(function (dbHeadline) {
+        res.json(dbHeadline);
+    }).catch(function (err) {
+        res.json(err);
+    });
+});
+
+//Grab specific headline per id, add note
+app.get("/headlines/:id", function(req, res) {
+    db.Headline.findOne({
+        _id: req.params.id
+    }).populate("note").then(function(dbHeadline) {
+        res.json(dbHeadline);
+    }).catch(function(err) {
+        res.json(err);
+    });
+});
+
+//Save and update note
+app.post("/headlines/:id", function(req, res) {
+    db.Note.create(req.body).then(function(dbNote) {
+        return db.Headline.fineOneAndUpdateOne({_id: req.params.id}, {note: dbNote._id}, {new: true});
+    }) .then(function(dbHeadline) {
+        res.json(dbHeadline);
+    }).catch(function(err) {
+        res.json(err);
+    });
+});
+
+app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
 });
