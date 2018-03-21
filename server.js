@@ -45,9 +45,10 @@ app.get("/scrape", function (req, res) {
 
         $("div.story-text").each(function (i, element) {
 
+            //grabbing headline, teaser, and article link for results object
             results.headline = $(element).find("a").find("h1").text();
             results.teaser = $(element).find("a").find("p").text();
-            results.link = $(element).find("a").attr("href");
+            results.link = $(element).find("a").find("h1").parent().attr("href");
 
             //create new headline in DB
             db.Headline.create(results).then(function (dbHeadline) {
@@ -56,7 +57,6 @@ app.get("/scrape", function (req, res) {
                 return res.json(err);
             });
         });
-        console.log("link: " + results.link);
         res.send("Scrape Complete");
     });
 });
