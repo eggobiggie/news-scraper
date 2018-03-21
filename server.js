@@ -40,19 +40,14 @@ app.get("/scrape", function (req, res) {
 
         var $ = cheerio.load(html);
 
+        //Empty results object
         var results = {};
 
         $("div.story-text").each(function (i, element) {
-            //empty result object
-            // var results = {};
 
             results.headline = $(element).find("a").find("h1").text();
             results.teaser = $(element).find("a").find("p").text();
-
-            // results.push({
-            //     title: title,
-            //     teaser: teaser
-            // });
+            results.link = $(element).find("a").attr("href");
 
             //create new headline in DB
             db.Headline.create(results).then(function (dbHeadline) {
@@ -61,7 +56,7 @@ app.get("/scrape", function (req, res) {
                 return res.json(err);
             });
         });
-        // console.log(results);
+        console.log("link: " + results.link);
         res.send("Scrape Complete");
     });
 });
