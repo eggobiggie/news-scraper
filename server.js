@@ -86,7 +86,7 @@ app.get("/headlines/:id", function(req, res) {
     });
 });
 
-//post onto saved page
+//Should save to a collection rather than just find the article by id - was not setup yet
 app.post("/saved", function(req, res) {
     db.Headline.findOne({
         _id: req.params.id
