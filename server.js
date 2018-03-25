@@ -8,6 +8,8 @@ var request = require("request");
 //Require models for db
 var db = require("./models");
 
+// var routes = require("./routes");
+
 //Local port
 var PORT = process.env.PORT || 3000;
 
@@ -36,24 +38,25 @@ mongoose.connect(MONGODB_URI, {
 
 app.get("/scrape", function (req, res) {
 
+    mongoose.connection.db.dropCollection("headlines");
+
     request("https://www.npr.org/", function (error, response, html) {
 
         var $ = cheerio.load(html);
 
-        //Empty results object
-        var results = {};
-
         $("div.story-text").each(function (i, element) {
+            var results = {};
 
             //grabbing headline, teaser, and article link for results object
             results.headline = $(element).find("a").find("h1").text();
             results.teaser = $(element).find("a").find("p").text();
             results.link = $(element).find("a").find("h1").parent().attr("href");
-
+       
             //create new headline in DB
             db.Headline.create(results).then(function (dbHeadline) {
-                console.log(dbHeadline);
+                console.log(dbHeadline);                
             }).catch(function (err) {
+                console.log("THE ERROR IS: " + err);
                 return res.json(err);
             });
         });
@@ -96,3 +99,7 @@ app.post("/headlines/:id", function(req, res) {
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
 });
+
+process.on('unhandledRejection', e => {
+    console.error(e);
+  });
