@@ -122,7 +122,3 @@ app.post("/headlines/:id", function(req, res) {
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
 });
-
-process.on('unhandledRejection', e => {
-    console.error(e);
-  });

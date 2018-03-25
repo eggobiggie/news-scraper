@@ -31,15 +31,22 @@ $(document).on("click", ".saveButton", function () {
                 if (data[i]._id === theId) {
                     var matchingId = data[i];
                     console.log(matchingId);
+                    //theoretically post to a saved api
                     $.ajax({
                         method: "POST",
                         url: "/saved",
                     }).then(function (data) {
                         console.log("HEADLINE: " + matchingId.headline);
-                        $(".savedHeadlineList").append("<h4>" + matchingId.headline + "</h4>");
+                        //display articles that were saved on the saved articles page
+                        //Would look similar to home page, but with additional buttons of comment on article and delete article
+                        //if user clicks on comment on article, a module would pop up with a textarea so the user could add comments to said article and save them
+                        //the comments/notes would be saved in an associated collection so that it would be connected to the id of the specific article.
+                        //if the user clicks "delete article", the article would be removed from the page and the saved collection
                     });
                 }
             }
         })
     });
 });
+
+//
