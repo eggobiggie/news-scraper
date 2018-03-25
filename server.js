@@ -38,6 +38,7 @@ mongoose.connect(MONGODB_URI, {
 
 app.get("/scrape", function (req, res) {
 
+    //Drops collection saved from before so that the scrape is current
     mongoose.connection.db.dropCollection("headlines");
 
     request("https://www.npr.org/", function (error, response, html) {
