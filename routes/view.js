@@ -1,15 +1,15 @@
-var express = require("express");
-var app = express();
+var path = require("path");
 
-//Save and update note
-var View = app.post("/headlines/:id", function(req, res) {
-    db.Note.create(req.body).then(function(dbNote) {
-        return db.Headline.fineOneAndUpdateOne({_id: req.params.id}, {note: dbNote._id}, {new: true});
-    }) .then(function(dbHeadline) {
-        res.json(dbHeadline);
-    }).catch(function(err) {
-        res.json(err);
-    });
-});
+//Tried to figure out handlebars but it was uncooperative
+module.exports = function(app) {
 
-module.exports = View;
+
+  app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/index.handlebars"));
+  });
+  
+  app.get("/saved", function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/saved.handlebars"));
+  });
+  
+};

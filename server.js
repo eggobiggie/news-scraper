@@ -8,7 +8,7 @@ var request = require("request");
 //Require models for db
 var db = require("./models");
 
-// var routes = require("./routes");
+var routes = require("./routes");
 
 //Local port
 var PORT = process.env.PORT || 3000;
@@ -75,6 +75,28 @@ app.get("/headlines", function (req, res) {
     });
 });
 
+//grab headline per id for saving
+app.get("/headlines/:id", function(req, res) {
+    db.Headline.findOne({
+        _id: req.params.id
+    }).then(function(dbHeadline) {
+        res.json(dbHeadline);
+    }).catch(function(err) {
+        res.json(err);
+    });
+});
+
+//post onto saved page
+app.post("/saved", function(req, res) {
+    db.Headline.findOne({
+        _id: req.params.id
+    }).then(function(dbHeadline) {
+        res.json(dbHeadline);
+    }).catch(function(err) {
+        res.json(err);
+    });
+});
+
 //Grab specific headline per id, add note
 app.get("/headlines/:id", function(req, res) {
     db.Headline.findOne({
@@ -89,7 +111,7 @@ app.get("/headlines/:id", function(req, res) {
 //Save and update note
 app.post("/headlines/:id", function(req, res) {
     db.Note.create(req.body).then(function(dbNote) {
-        return db.Headline.fineOneAndUpdateOne({_id: req.params.id}, {note: dbNote._id}, {new: true});
+        return db.Headline.findOneAndUpdateOne({_id: req.params.id}, {note: dbNote._id}, {new: true});
     }) .then(function(dbHeadline) {
         res.json(dbHeadline);
     }).catch(function(err) {
